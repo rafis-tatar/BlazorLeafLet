@@ -1,0 +1,41 @@
+﻿@page "/counter"
+@using LeafletMap
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<div class="map-element">
+    <Map @ref="map" MaxZoom="18" MinZoom="5" Centr=@centr></Map>
+</div>
+
+@code {
+    LeafletMap.Location centr = new Location(51, 52); 
+    private int currentCount = 0;
+
+    private Map map;
+
+    Random r = new Random();
+    private async void IncrementCount()
+    {
+        currentCount++;
+        if (map!=null)
+        {
+            Circle c = new Circle()
+                {
+                    Center = new Location(50.0 + r.NextDouble(), 50.0 + r.NextDouble()), Radius = 1500
+                };
+            ShapeOption option = new ShapeOption()
+                {
+                    color = "red", fillOpacity = 0.6
+                };
+
+            await map.AddShape(c, option);
+        }
+
+    }
+}
