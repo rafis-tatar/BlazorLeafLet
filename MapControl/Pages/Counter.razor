@@ -10,7 +10,7 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 <div class="map-element">
-    <Map @ref="map" MaxZoom="18" MinZoom="5" Centr=@centr></Map>
+    <Map @ref="map" MaxZoom="18" MinZoom="0" Centr=@centr></Map>
 </div>
 
 @code {
@@ -23,15 +23,27 @@
     private async void IncrementCount()
     {
         currentCount++;
-        if (map!=null)
+        if (map != null)
         {
-            Circle c = new Circle()
+            List<Location> locations = new List<Location>()
                 {
-                    Center = new Location(50.0 + r.NextDouble(), 50.0 + r.NextDouble()), Radius = 1500
+                    new Location(50 + r.NextDouble(), 50 + r.NextDouble()),
+                    new Location(50 + r.NextDouble(), 50 + r.NextDouble()),
+                    new Location(50 + r.NextDouble(), 50 + r.NextDouble()),
+                    new Location(50 + r.NextDouble(), 50 + r.NextDouble()),
+                    new Location(50 + r.NextDouble(), 50 + r.NextDouble()),
+                    new Location(50 + r.NextDouble(), 50 + r.NextDouble()),
                 };
+
+            Polyline c = new Polyline()
+                {
+                    Points = locations
+                };
+
             ShapeOption option = new ShapeOption()
                 {
-                    color = "red", fillOpacity = 0.6
+                    color = "red",
+                    fillOpacity = 0.6
                 };
 
             await map.AddShape(c, option);

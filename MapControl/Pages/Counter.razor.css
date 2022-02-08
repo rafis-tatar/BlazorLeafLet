@@ -1,6 +1,6 @@
 ﻿
 .map-element{
-    height:400px;
-    width:400px;
-    
+    border:1px solid red;
+    height:600px;
+    width:800px;    
 }
